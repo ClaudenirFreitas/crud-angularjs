@@ -1,0 +1,23 @@
+O que foi utilizado para o desenvolvimento do trabalho
+
+- AngularJS Framework - ( Mantido pela Google);
+- Bootstrap  - (Mantido pelo Twitter);
+- Bower - Download de Packeages para o desenvolvimento WEB.
+
+Iniciando a aplicação
+
+ - Abra o index.html que se encontra dentro da pasta Grafos
+
+
+Inserir novas cidades e a distâncias entre elas
+
+ - 1º No campo cidade A digite a cidade que deseja
+ - 2º No campo cidade B digite a cidade que deseja
+ - 3º No campo distância entre cidade A e cidade B informe a distância entre elas em KM
+ - 4º Clique em salvar.
+
+Excluir o registro
+
+ 1º Clique no botão Excluir que se encontra a frente do registro.
+
+
