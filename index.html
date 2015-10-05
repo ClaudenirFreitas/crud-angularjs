@@ -1,88 +1,81 @@
 <!DOCTYPE html>
 <html ng-app="GrafosApp">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Grafos - PUC-MINAS</title>
-
-	<!-- Bootstrap CSS -->
-	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet">
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="controles/GrafostCtrl.js"></script>
-
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grafos - PUC-MINAS</title>
+    <!-- Bootstrap CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="controles/GrafostCtrl.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 			<![endif]-->
-		</head>
-		<body  ng-controller="GrafostCtrl">
+</head>
 
-			<div class="container">
-			<div class="col-md-10 col-md-offset-1">
-				<form method="post">
-					<div class="form-group">
-						<input type="text" class="form-control input-lg" ng-model="cidades.cidadeOne" placeholder="Cidade A" required>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control input-lg" ng-model="cidades.cidadeTwo" placeholder="Cidade B" required>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control input-lg" ng-model="cidades.distancia" placeholder="Distância entre Cidade A e Cidade B" required>
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-info btn-lg" ng-click="adicionar()" style="width:100%">Salvar</button>
-					</div>
+<body ng-controller="GrafostCtrl">
+    <div class="container">
+        <div class="col-md-10 col-md-offset-1">
+            <form method="post" ng-submit="salvar()">
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" ng-model="cidade.cidadeOne" placeholder="Cidade A" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" ng-model="cidade.cidadeTwo" placeholder="Cidade B" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control input-lg" ng-model="cidade.distancia" placeholder="Distância entre Cidade A e Cidade B" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info btn-lg" style="width:100%">Salvar</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger btn-lg" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="width:100%">Visualizar Grafo</button>
+                </div>
+            </form>
+            <div>
+                <div class="collapse" id="collapseExample">
+                    <div class="well">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Cidade A</th>
+                                    <th>Cidade B</th>
+                                    <th>Distância</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cidade in cidades">
+                                    <td>{{cidade.cidadeOne}}</td>
+                                    <td>{{cidade.cidadeTwo}}</td>
+                                    <td>{{cidade.distancia + ' KM'}}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-danger" ng-click="remove(cidade.id)">
+                                            <span class="glyphicon glyphicon-remove"></span><strong> Excluir</strong>
+                                        </a>
+                                        <button type="button" class="btn btn-warning" aria-label="Left Align" ng-click="editar(cidade.id)">
+                                            <span class="glyphicon glyphicon-remove"></span> <strong>Alterar</strong>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- Bootstrap JavaScript -->
+</body>
 
-					<div class="form-group">
-						<button class="btn btn-danger btn-lg" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="width:100%">Visualizar Grafo</button>
-					</div>
-				</form>
-				<div>
-					<div class="collapse" id="collapseExample">
-						<div class="well">
-							<table class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>Cidade A</th>
-										<th>Cidade B</th>
-										<th>Distância</th>
-										<th>Ações</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat ="cidade in cidades">
-										<td>{{cidade.cidadeOne}}</td>
-										<td>{{cidade.cidadeTwo}}</td>
-										<td>{{cidade.distancia}}</td>
-										<td class="text-center">
-										
-										<a class="btn btn-danger" ng-click="remove($index)">
-											<span class="glyphicon glyphicon-remove"></span><strong> Excluir</strong>
-										</a>
-										
-
-										<button type="button" class="btn btn-warning" aria-label="Left Align">
-										<span class="glyphicon glyphicon-remove"></span> <strong>Alterar</strong>
-										</button>
-										</td>
-
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				</div>
-			</div>
-
-
-			<!-- jQuery -->
-			<script src="bower_components/jquery/dist/jquery.js"></script>
-			<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-			<!-- Bootstrap JavaScript -->
-		</body>
-		</html>
+</html>
